@@ -1,0 +1,23 @@
+--*-虚拟环境相关（以下为控制台命令的方法）--*-
+// 目前已创建
+// 1. 创建虚拟环境的方法：其中reptile_env是环境名
+// python -m venv reptile_env
+
+2. 进入环境的方法
+ .\reptile_env\Scripts\activate
+
+3. 正确的结果
+命令行左侧环境出现 `(reptile_env)`
+
+--*-依赖（虚拟环境reptile_env中都有）-*--
+python 3.12 
+pywin32 (python 3.5以上需要使用pypiwin32)
+注：pywin32等阿里源不具有，当时使用了
+
+--*-Scrapy-*--
+注：win不能通过pip install scrapy方式安装
+安装时，python的版本和包的版本要对应
+Windows: http://www.cnblogs.com/tigerm/p/scrapy.html
+Linux: pip install scrapy
+
+

@@ -7,7 +7,8 @@ from scrapy import signals
 import random
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
-
+from scrapy.http import HtmlResponse
+from selenium import webdriver
 
 class SpidermainSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -101,6 +102,14 @@ class SpidermainDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+# selenium
+class SeleniumDownloaderMiddleware:
+    def process_request(self, request, spider):
+        spider.driver.get(request.url)
+        print(f"当前访问{request.url}")
+        spider.driver.refresh()
+        return HtmlResponse(url=spider.driver.current_url,body=spider.driver.page_source,encoding='utf-8')
 
 # 多主机模拟
 class RandomUserAgentMiddleware(object):

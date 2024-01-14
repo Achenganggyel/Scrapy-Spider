@@ -50,9 +50,12 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "spiderMain.middlewares.SpidermainDownloaderMiddleware": 543,
-#}
+# 启用中间件
+DOWNLOADER_MIDDLEWARES = {
+   "spiderMain.middlewares.SpidermainDownloaderMiddleware": 543,
+   "spiderMain.middlewares.SeleniumDownloaderMiddleware": 100,
+   "spiderMain.middlewares.RandomUserAgentMiddleware": 400
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -102,7 +105,6 @@ ITEM_PIPELINES = {
     # 主要的pipeline, 后面数字是优先级
     "spiderMain.pipelines.SpidermainPipeline": 300
 }
-# 启用中间件
-DOWNLOADER_MIDDLEWARES = {
-    "spiderMain.middlewares.RandomUserAgentMiddleware": 400
-}
+# 随机延时
+DOWNLOAD_DELAY = 3
+RANDOMIZE_DOWNLOAD_DELAY=True

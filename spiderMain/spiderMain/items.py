@@ -6,14 +6,30 @@
 import scrapy
 
 class beijingItem(scrapy.Item):
+    # 地区
+    area = scrapy.Field(serializer=str)
     # 所属税务机关名称
-    location = scrapy.Field()
+    location = scrapy.Field(serializer=str)
     # 失信主体
-    company = scrapy.Field()
+    company = scrapy.Field(serializer=str)
     # 识别号
-    id = scrapy.Field()
+    id = scrapy.Field(serializer=str)
     # 违法性质
-    lawCase = scrapy.Field() 
+    lawCase = scrapy.Field(serializer=str) 
+
+class shenzhenItem(scrapy.Item):
+    # 地区
+    area = scrapy.Field(serializer=str)
+    # 所属子地区
+    location = scrapy.Field(serializer=str)
+    # 纳税人名称/失信主体
+    company = scrapy.Field(serializer=str)
+    # 识别号
+    id = scrapy.Field(serializer=str)
+    # 违法/案件性质
+    lawCase = scrapy.Field(serializer=str) 
+    # 公布日期
+    time = scrapy.Field(serializer=str) 
 
 # 详细的信息
 class SpidermainItem(scrapy.Item):

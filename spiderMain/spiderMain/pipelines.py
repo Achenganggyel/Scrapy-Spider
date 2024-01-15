@@ -6,21 +6,26 @@
 
 # useful for handling different item types with a single interface
 import json
+import os
+# 支持对不同地点area保存的不同
+class SpidermainPipeline(object):
+    def __init__(self):
+        self.data = {}
+        self.path = '../res/'
 
-class SpidermainPipeline:
-    pass
-    # def __init__(self) -> None:
-    #     # 新增不同地点的分类
-    #     self.file = open('./res/results.json','w+',encoding='utf-8')
-    # def file_path(self, request, response=None, info=None):
-    #     pass
-    # def process_item(self, item, spider):
-    #     # 将item转为字典
-    #     item_dict = dict(item)
-    #     # 将字典以JSON格式写入文件
-    #     line = json.dumps(item_dict, ensure_ascii=False) + "\n"
-    #     self.file.write(line)
-    #     return item
-    # def close_spider(self, spider):
-    #     # 关闭文件
-    #     self.file.close()
+    def process_item(self, item, spider):
+        area = item['area']  # 假设area字段表示省市
+        # 如果字典中尚未包含area对应的数据，创建一个新的列表
+        if area not in self.data:
+            self.data[area] = []
+        # 添加item到对应area的列表中
+        item_json = json.dumps(dict(item), ensure_ascii=False) # 要将item转换字典
+        self.data[area].append(item_json)
+        return item
+
+    def close_spider(self, spider):
+        for area, data in self.data.items():
+            path = self.path + area + '.json'
+            with open(path, 'w+', encoding='utf-8') as file:
+                 for item in data:
+                     file.write(item + '\n')

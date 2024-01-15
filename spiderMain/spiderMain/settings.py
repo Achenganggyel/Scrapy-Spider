@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = "spiderMain.spiders"
 #USER_AGENT = "spiderMain (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -44,17 +44,17 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    "spiderMain.middlewares.SpidermainSpiderMiddleware": 543,
-#}
+SPIDER_MIDDLEWARES = {
+   "spiderMain.middlewares.SpidermainSpiderMiddleware": 400,
+}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # 启用中间件
 DOWNLOADER_MIDDLEWARES = {
-   "spiderMain.middlewares.SpidermainDownloaderMiddleware": 543,
-   "spiderMain.middlewares.SeleniumDownloaderMiddleware": 100,
-   "spiderMain.middlewares.RandomUserAgentMiddleware": 400
+   "spiderMain.middlewares.SpidermainDownloaderMiddleware": 200,
+   "spiderMain.middlewares.SeleniumDownloaderMiddleware": 300,
+   "spiderMain.middlewares.RandomUserAgentMiddleware": 100
 }
 
 # Enable or disable extensions
@@ -65,9 +65,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "spiderMain.pipelines.SpidermainPipeline": 300,
-#}
+# 启用中间件
+ITEM_PIPELINES = {
+   "spiderMain.pipelines.SpidermainPipeline": 50,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -95,16 +96,18 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 # NOTE 爬虫中增加
+DEFAULT_REQUEST_HEADERS= {
+   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
+}
 # 多主机
 USER_AGENTS = {
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15',
-    'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko'
+   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15',
+   'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko'
 }
-ITEM_PIPELINES = {
-    # 主要的pipeline, 后面数字是优先级
-    "spiderMain.pipelines.SpidermainPipeline": 300
-}
+
 # 随机延时
 DOWNLOAD_DELAY = 3
 RANDOMIZE_DOWNLOAD_DELAY=True
+# LOG_LEVEL = "WARNING"
+FILE_STORE = '/spiderMain/res'

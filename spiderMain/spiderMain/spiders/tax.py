@@ -34,7 +34,6 @@ class TaxSpider(scrapy.Spider):
                 item = beijingItem()
                 item_string_list = case.xpath('string(.)').extract() # 返回的是list
                 item_list = "".join(item_string_list).split('\n')
-                print('\n\n去喵喵',item_list)
                 tmp = []
                 for i in range(2, len(item_list)-2):
                     tmp.append(item_list[i].strip().replace('\t\t\t\t\t', '')) 
@@ -43,7 +42,6 @@ class TaxSpider(scrapy.Spider):
                 item['company'] = tmp[1]
                 item['id'] = tmp[2]
                 item['lawCase'] = tmp[3]
-                print('\n\n看我看我',tmp)
                 yield item
             if self.current_page < 167:
                 yield Request(url=response.url, callback=self.parse, meta={'location':'北京','next_page':True},dont_filter=True)

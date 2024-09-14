@@ -38,6 +38,7 @@ p.s.如果想让爬虫的items输出到一个json文件，则使用以下命令
 &emsp;&emsp;&ensp; spiderMain/pipelines.py：项目的pipelines文件，处理爬虫返回的item数据 <br/>
 &emsp;&emsp;&ensp; spiderMain/settings.py：项目的设置文件 <br/>
 &emsp;&emsp;&ensp; spiderMain/spiders/：存储爬虫的目录 <br/>
+
 ### 3. 开发爬虫
 本部分是开发者需要注意的
 1. 找到目标网站的网址：如http://beijing.chinatax.gov.cn/bjsat/office/jsp/zdsswfaj/wwquery.jsp
@@ -47,4 +48,11 @@ p.s.如果想让爬虫的items输出到一个json文件，则使用以下命令
    1. 使用`pip freeze > requirements.txt`，会把所有库都保存（包括多余的）。但本人使用此种才能成功
    2. 采用第三方包pipreqs
 &ensp;*Step 1* 安装pipreqs：`pip install pipreqs` <br/>
-&ensp;*Step 2* 终端输入：`pipreqs ./` 
+&ensp;*Step 2* 终端输入：`pipreqs ./`
+
+### 4. 遇到的问题
+各个省市的网站尽管部分有iframe框架，但是设置的属性名称和数据结构都不一样，连robots.txt都没有。
+所以欢迎大佬们的修改指正，目前遇到了以下的问题：
+1. 目前需要selenium模拟器模仿用户点击和翻页，耗时过长
+2. 爬取的网页和数据量不够大
+3. 爬虫模型写的不好，效率低
